@@ -7,6 +7,7 @@ database_filename = "database.db"
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
 
+
 db = SQLAlchemy()
 
 '''
@@ -31,6 +32,7 @@ db_drop_and_create_all()
 
 
 def db_drop_and_create_all():
+    print(database_path)
     db.drop_all()
     db.create_all()
     # add one demo row which is helping in POSTMAN test
@@ -39,8 +41,9 @@ def db_drop_and_create_all():
         recipe='[{"name": "water", "color": "blue", "parts": 1}]'
     )
 
+    drink.insert()
 
-drink.insert()
+
 # ROUTES
 
 '''
@@ -64,7 +67,7 @@ class Drink(db.Model):
     '''
 
     def short(self):
-        print(json.loads(self.recipe))
+        # print(json.loads(self.recipe))
         short_recipe = [{'color': r['color'], 'parts': r['parts']} for r in json.loads(self.recipe)]
         return {
             'id': self.id,
