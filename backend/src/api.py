@@ -93,14 +93,16 @@ def post_drinks(jwt):
     try:
         
         drinks_to_create = request.get_json()
+
+        print(drinks_to_create)
     
         if drinks_to_create is None:
             abort(422)
 
-        drinks = [Drink(title= drink.title, recipe = drink.recipe) for drink in drinks_to_create]
+        drink = Drink(title = drinks_to_create['title'], recipe = demjson.encode(drinks_to_create['recipe'], encoding = 'utf-8'))
 
-        for drink in drinks:
-            drink.insert()
+        
+        drink.insert()
     
         return jsonify({
             "success": True, "drinks": drinks_to_create
