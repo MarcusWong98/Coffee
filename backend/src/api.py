@@ -130,7 +130,7 @@ def post_drinks(jwt):
 '''
 
 @app.route('/drinks/<id>', methods = ['PATCH'])
-# @requires_auth(permission='patch:drinks')
+@requires_auth(permission='patch:drinks')
 def patch_drinks(id):
 
     drink = Drink.query.get(id)
@@ -166,7 +166,7 @@ def patch_drinks(id):
         or appropriate status code indicating reason for failure
 '''
 @app.route('/drinks/<id>', methods = ['DELETE'])
-# @requires_auth(permission='delete:drinks')
+@requires_auth(permission='delete:drinks')
 def delete_drinks(id):
 
     drink = Drink.query.get(id)
